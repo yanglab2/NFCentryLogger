@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebNFC Test</title>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 화면의 높이에 맞게 가운데 정렬 */
+        margin: 0;
+        flex-direction: column; /* 수직 방향으로 정렬 */
+    }
+
+    button {
+        text-align: center;
+        border: none;
+        font-size: 30px;
+        padding: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 30px;
+        cursor: pointer;
+        white-space: pre-line; /* <br> 태그를 인식하도록 설정 */
+    }
+</style>
+<body>
+    <button id="startScan">스캔하기</button>
+    <a id="message" style="font-size: 20px"></a>
+</body>
+<script>
+    let scanButton = document.getElementById('startScan')
+
+    function addMsg(msgSet) {
+        let msg = document.getElementById('message')
+        msg.innerHTML += `${msgSet}<br>`
+    }
+
+    scanButton.addEventListener("click", async () => {
+        addMsg('Start')
+        try {
+            const ndef = new NDEFReader();
+            await ndef.scan();
+            ndef.addEventListener("readingerror", () => {
+                addMsg('오류가 발생하였습니다! (NFCreadFailure)')
+            });
+
+            ndef.addEventListener("reading", ({ message, serialNumber }) => {
+                addMsg(`> Serial Number: ${serialNumber}`);
+            });
+        }
+        catch (error) {
+            addMsg("Argh! " + error);
+        }
+    });
+</script>
+</html>
