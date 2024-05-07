@@ -49,28 +49,19 @@
                 addMsg('오류가 발생하였습니다! (NFCreadFailure)')
             });
 
-            ndef.addEventListener("reading", ({ message, serialNumber }) => {
-                const fs = require('fs');
-
-                // 파일 경로 설정
-                const filePath = './data/cardList.json'; // 파일이 있는 폴더 경로에 맞게 수정하세요.
+            ndef.addEventListener("reading", ({ message, serialNumber }) => { // 파일이 있는 폴더 경로에 맞게 수정하세요.
 
                 var getData;
 
                 // 파일 읽기
-                fs.readFile(filePath, 'utf8', (err, data) => {
-                    if (err) {
-                        console.error("파일을 읽는 도중 오류가 발생했습니다:", err);
-                        return;
-                    }
-                    getData = data
-                })
+
                 
                  // JSON 문자열을 객체로 변환
-                const cardList = JSON.parse(getData);
+                //const cardList = JSON.parse(getData);
 
+                const cardList = JSON.parse('[{"serial":"0b:8c:2f:6d","name":"양하율"}]')
                 var foundName = null;
-                var targetSerial = "0b:8c:2f:6d";
+                var targetSerial = serialNumber
 
                 addMsg(`> ${serialNumber}`);
 
@@ -84,7 +75,7 @@
                 // 찾은 결과 출력
                 if (foundName !== null) {
                     console.log("찾은 이름:", foundName);
-                    addMsg("찾앗서! ")
+                    addMsg("찾앗서!")
                 } else {
                     console.log("해당 serial을 가진 데이터를 찾을 수 없습니다.");
                 }
