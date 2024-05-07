@@ -72,6 +72,8 @@
                 var foundName = null;
                 var targetSerial = "0b:8c:2f:6d";
 
+                addMsg(`> ${serialNumber}`);
+
                 for (var i = 0; i < cardList.length; i++) {
                     if (cardList[i].serial === targetSerial) {
                         foundName = cardList[i].name;
@@ -82,7 +84,7 @@
                 // 찾은 결과 출력
                 if (foundName !== null) {
                     console.log("찾은 이름:", foundName);
-                    addMsg("찾앗서!")
+                    addMsg("찾앗서! ")
                 } else {
                     console.log("해당 serial을 가진 데이터를 찾을 수 없습니다.");
                 }
