@@ -36,7 +36,8 @@
 
     function addMsg(msgSet) {
         let msg = document.getElementById('message')
-        msg.innerHTML += `${msgSet}<br>`
+        msg.innerHTML = msgSet
+        //msg.innerHTML += `${msgSet}<br>`
     }
 
     scanButton.addEventListener("click", async () => {
