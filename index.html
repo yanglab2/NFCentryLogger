@@ -41,6 +41,11 @@
     }
 
     scanButton.addEventListener("click", async () => {
+        fetch('./data/cardList.json')
+    .then(response => {
+      return response.json();
+    })
+    .then(jsondata => console.log(jsondata));
         addMsg('Start')
         try {
             const ndef = new NDEFReader();
@@ -65,7 +70,7 @@
                     {"serial":"58:ed:d3:78","name":"김민수"},
                     {"serial":"bf:e7:31:d6","name":"토스뱅크카드"}
                 ]`)
-                
+
                 var foundName = null;
                 var targetSerial = serialNumber
 
