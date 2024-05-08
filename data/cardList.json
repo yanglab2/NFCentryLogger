@@ -1,1 +1,6 @@
-[{"serial":"0b:8c:2f:6d","name":"양하율"},{"serial":"c8:6b:86:77","name":"홍길동"},{"serial":"58:ed:d3:78","name":"김민수"}]
+[
+    {"serial":"0b:8c:2f:6d","name":"양하율"},
+    {"serial":"c8:6b:86:77","name":"홍길동"},
+    {"serial":"58:ed:d3:78","name":"김민수"},
+    {"serial":"bf:e7:31:d6","name":"토스뱅크카드"}
+]
