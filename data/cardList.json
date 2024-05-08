@@ -2,6 +2,5 @@
     {"serial":"0b:8c:2f:6d","name":"RFID 1"},
     {"serial":"c8:6b:86:77","name":"RFID N"},
     {"serial":"58:ed:d3:78","name":"RFID N"},
-    {"serial":"bf:e7:31:d6","name":"토스뱅크카드"},
-    {"serial":"08:35:65:17","name":"하율의 Galaxy Watch6"}
+    {"serial":"bf:e7:31:d6","name":"토스뱅크카드"}
 ]
