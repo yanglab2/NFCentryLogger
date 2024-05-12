@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Key Register</title>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* 화면의 높이에 맞게 가운데 정렬 */
+        margin: 0;
+        flex-direction: column; /* 수직 방향으로 정렬 */
+    }
+
+    button {
+        text-align: center;
+        border: none;
+        font-size: 30px;
+        padding: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 30px;
+        margin-top: 10px;
+        cursor: pointer;
+        white-space: pre-line; /* <br> 태그를 인식하도록 설정 */
+    }
+</style>
+<body>
+    <a style="font-size: 25px;">이름 : <input style="font-size: 25px;" id="enterName"></a>
+    <button id="startScan" >스캔하기</button>
+    <a id="message" style="font-size: 20px"></a>
+</body>
+<script>
+    let scanButton = document.getElementById('startScan')
+
+    function addMsg(msgSet) {
+        let msg = document.getElementById('message')
+        msg.innerHTML = msgSet
+        //msg.innerHTML += `${msgSet}<br>`
+    }
+
+    scanButton.addEventListener("click", async () => {
+        var cardList;
+        fetch('../data/cardList.json')
+        .then(response => {
+          return response.json();
+        })
+        .then(jsondata => {
+            cardList = jsondata
+        });
+        addMsg('Start')
+        
+        try {
+            const ndef = new NDEFReader();
+            await ndef.scan();
+            ndef.addEventListener("readingerror", () => {
+                addMsg('오류가 발생하였습니다! (NFCreadFailure)')
+            });
+
+            ndef.addEventListener("reading", ({ message, serialNumber }) => { // 파일이 있는 폴더 경로에 맞게 수정하세요.
+
+                var getData;
+
+                var foundName = null;
+                var targetSerial = serialNumber
+
+                for (var i = 0; i < cardList.length; i++) {
+                    if (cardList[i].serial === targetSerial) {
+                        foundName = cardList[i].name;
+                        break; // 찾았으면 더 이상 반복할 필요가 없으므로 반복문을 종료합니다.
+                    }
+                }
+                
+                // 찾은 결과 출력
+                if (foundName !== null) {
+                    console.log("찾은 이름:", foundName);
+                    addMsg("찾앗서!")
+                } else {
+                    console.log("해당 serial을 가진 데이터를 찾을 수 없습니다.");
+                }
+
+                addMsg(`> ${foundName} : ${serialNumber}`);
+            });
+        }
+        catch (error) {
+            addMsg("Argh! " + error);
+        }
+    });
+</script>
+</html>

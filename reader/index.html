@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebNFC Test</title>
+    <title>NFC Key Read</title>
 </head>
 <style>
     body {
@@ -42,7 +42,7 @@
 
     scanButton.addEventListener("click", async () => {
         var cardList;
-        fetch('./data/cardList.json')
+        fetch('../data/cardList.json')
         .then(response => {
           return response.json();
         })
